@@ -20,6 +20,7 @@ def ExtractV2E(data):
     _, sorted_idx = torch.sort(edge_index[0])
     edge_index = edge_index[:, sorted_idx].type(torch.LongTensor)
 
+
     # data.n_x = int:100
     num_nodes = data.n_x
     num_hyperedges = data.num_hyperedges
