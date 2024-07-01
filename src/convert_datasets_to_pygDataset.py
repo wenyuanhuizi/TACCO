@@ -127,7 +127,7 @@ class dataset_Hypergraph(InMemoryDataset):
     def __init__(self, root='../data/pyg_data/hypergraph_dataset/', name=None,
                  p2raw=None, transform=None, pre_transform=None, num_nodes=7423, text=True):
         
-        existing_dataset = ['mimic3', 'cradle']
+        existing_dataset = ['mimic3', 'cradle', 'ukb']
         if name not in existing_dataset:
             raise ValueError(f'name of hypergraph dataset must be one of: {existing_dataset}')
         else:
