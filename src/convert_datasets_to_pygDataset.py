@@ -185,13 +185,19 @@ class dataset_Hypergraph(InMemoryDataset):
 
                 if self.name in ['mimic3']:
                     tmp_data = load_dataset(path=self.p2raw,
-                        dataset=self.name,
-                        node_feature_path="../data/raw_data/mimic3/node-embeddings-mimic3", num_node=self.num_nodes, text=self.text)
-
+                                            dataset=self.name,
+                                            node_feature_path="../data/raw_data/mimic3/node-embeddings-mimic3", 
+                                            num_node=self.num_nodes, text=self.text)
                 elif self.name in ['cradle']:
                     tmp_data = load_dataset(path=self.p2raw,
-                        dataset=self.name,
-                        node_feature_path="../data/raw_data/cradle/node-embeddings-cradle", num_node=self.num_nodes, text=self.text)
+                                            dataset=self.name,
+                                            node_feature_path="../data/raw_data/cradle/node-embeddings-cradle", 
+                                            num_node=self.num_nodes, text=self.text)
+                elif self.name in ['ukb']:
+                    tmp_data = load_dataset(path=self.p2raw,
+                                            dataset=self.name,
+                                            node_feature_path="../data/raw_data/ukb/node-embeddings-ukb", 
+                                            num_node=self.num_nodes, text=self.text)
                     
                 _ = save_data_to_pickle(tmp_data, 
                                           p2root = self.myraw_dir,
