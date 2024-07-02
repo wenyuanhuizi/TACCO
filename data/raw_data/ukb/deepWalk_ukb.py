@@ -1,5 +1,23 @@
+from gensim.models import Word2Vec
 import networkx as nx
-from node2vec import Node2Vec
+from random import choice
+
+# Function to perform deep walks
+def deepwalk(G, walk_length, num_walks):
+    walks = []
+    nodes = list(G.nodes())
+    for _ in range(num_walks):
+        for node in nodes:
+            walk = [node]
+            while len(walk) < walk_length:
+                cur = walk[-1]
+                neighbors = list(G.neighbors(cur))
+                if len(neighbors) > 0:
+                    walk.append(choice(neighbors))
+                else:
+                    break
+            walks.append(walk)
+    return walks
 
 # Load the hyperedges data
 def load_hyperedges(filepath):
@@ -18,17 +36,16 @@ def create_graph(hyperedges):
     return G
 
 # Load hyperedges
-hyperedges = load_hyperedges('/Users/wenyuanhuizi/Desktop/TACCO/data/raw_data/ukb/hyperedges-ukb.txt')
+hyperedges = load_hyperedges('data/raw_data/ukb/hyperedges-ukb.txt')
 
 # Create graph
 G = create_graph(hyperedges)
 
-# Generate walks using Node2Vec
-node2vec = Node2Vec(G, dimensions=64, walk_length=30, num_walks=200, workers=4)
+# Perform deep walks
+walks = deepwalk(G, walk_length=10, num_walks=50)
 
-# Learn embeddings
-model = node2vec.fit(window=10, min_count=1, batch_words=4)
+# Train Word2Vec model
+model = Word2Vec(walks, vector_size=32, window=10, min_count=1, sg=1, workers=8)
 
 # Save embeddings
-embeddings = model.wv
-embeddings.save_word2vec_format('node_embeddings_ukb.txt')
+model.wv.save_word2vec_format('node_embeddings_ukb.txt')
