@@ -39,4 +39,3 @@ np.savetxt('random_embeddings.txt', embeddings)
 
 print("Randomly initialized embeddings:")
 print(embeddings)
-

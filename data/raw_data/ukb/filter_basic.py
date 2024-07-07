@@ -22,9 +22,18 @@ def preprocess_data(input_filename, output_filename):
 
     print(f"Selected lines written to {output_filename}")
 
+    # Count the number of unique medical codes in the filtered data
+    unique_codes = set()
+    for line in selected_lines:
+        codes = map(int, line.strip().split(','))
+        unique_codes.update(codes)
+
+    # Print the number of unique medical codes
+    print(f"Number of unique medical codes in the filtered data: {len(unique_codes)}")
+
 # File names
-input_filename = 'hyperedges-ukb.txt'
-output_filename = 'hyperedges_basic_ukbran.txt'
+input_filename = '/Users/wenyuanhuizi/Desktop/TACCO/data/raw_data/ukb/hyperedges-ukb.txt'
+output_filename = '/Users/wenyuanhuizi/Desktop/TACCO/data/raw_data/ukb/hyperedges_basic_ukbran.txt'
 
 # Preprocess the data
 preprocess_data(input_filename, output_filename)
